@@ -5,6 +5,16 @@ namespace WaterJugChallenge.BLL.Services
 {
     public class WaterJugChallengeService : IWaterJugChallenge
     {
+
+        /// <summary>
+        /// Measures water.
+        /// </summary>
+        /// <param name="waterJugChallengeCreateDto">Input data containing bucket capacities and target amount.</param>
+        /// <returns>
+        /// List of WaterJugChallengeResponseDto representing the steps taken to achieve the target amount.
+        /// The method determines the appropriate bucket to start the simulation based on the closest value to the target amount.
+        /// Throws an ArgumentException if the input parameters are invalid.
+        /// </returns>
         public List<WaterJugChallengeResponseDto> MeasureWater(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
         {
 
@@ -24,32 +34,14 @@ namespace WaterJugChallenge.BLL.Services
             throw new ArgumentException("Invalid jug capacities or target amount.");
         }
 
-        public bool CanMeasureWater(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
-        {
-            if (waterJugChallengeCreateDto.BucketX <= 0 || waterJugChallengeCreateDto.BucketY <= 0 || waterJugChallengeCreateDto.TargetAmount < 0)
-            {
-                return false;
-            }
-
-            if (waterJugChallengeCreateDto.BucketX < waterJugChallengeCreateDto.TargetAmount && waterJugChallengeCreateDto.BucketY < waterJugChallengeCreateDto.TargetAmount)
-            {
-                return false;
-            }
-
-            // Check if all values ​​are even or odd
-            if (IsOdd(waterJugChallengeCreateDto.BucketX) && IsOdd(waterJugChallengeCreateDto.BucketY) && IsOdd(waterJugChallengeCreateDto.TargetAmount))
-            {
-                return true;
-            }
-            else if (!IsOdd(waterJugChallengeCreateDto.BucketX) && !IsOdd(waterJugChallengeCreateDto.BucketY) && !IsOdd(waterJugChallengeCreateDto.TargetAmount))
-            {
-                return true;
-            }
-        
-
-            return false;
-        }
-
+        /// <summary>
+        /// Solve the Water Jug Challenge when BucketX is the closest value to the Target Amount.
+        /// </summary>
+        /// <param name="waterJugChallengeCreateDto">Input data containing bucket capacities and target amount.</param>
+        /// <returns>
+        /// List of WaterJugChallengeResponseDto representing the steps taken to achieve the target amount.
+        /// The simulation continues until the target amount is reached in either bucket or no further progress is possible.
+        /// </returns>
         public List<WaterJugChallengeResponseDto> BucketProblemBucketX(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
         {
             // Initialize variables
@@ -123,6 +115,14 @@ namespace WaterJugChallenge.BLL.Services
             return waterJugChallenge;
         }
 
+        /// <summary>
+        /// Solve the Water Jug Challenge when BucketY is the closest value to the Target Amount.
+        /// </summary>
+        /// <param name="waterJugChallengeCreateDto">Input data containing bucket capacities and target amount.</param>
+        /// <returns>
+        /// List of WaterJugChallengeResponseDto representing the steps taken to achieve the target amount.
+        /// The simulation continues until the target amount is reached in either bucket or no further progress is possible.
+        /// </returns>
         public List<WaterJugChallengeResponseDto> BucketProblemBucketY(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
         {
             // Initialize variables
@@ -214,8 +214,42 @@ namespace WaterJugChallenge.BLL.Services
             return waterJugChallenge;
         }
 
+        /// <summary>
+        /// Validate if water can measure 
+        /// </summary>
+        /// <param name="waterJugChallengeCreateDto">Input data containing bucket capacities and target amount.</param>
+        /// <returns>True/false if water can measure</returns>
+        public bool CanMeasureWater(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
+        {
+            if (waterJugChallengeCreateDto.BucketX <= 0 || waterJugChallengeCreateDto.BucketY <= 0 || waterJugChallengeCreateDto.TargetAmount < 0)
+            {
+                return false;
+            }
+
+            if (waterJugChallengeCreateDto.BucketX < waterJugChallengeCreateDto.TargetAmount && waterJugChallengeCreateDto.BucketY < waterJugChallengeCreateDto.TargetAmount)
+            {
+                return false;
+            }
+
+            // Check if all values ​​are even or odd
+            if (IsOdd(waterJugChallengeCreateDto.BucketX) && IsOdd(waterJugChallengeCreateDto.BucketY) && IsOdd(waterJugChallengeCreateDto.TargetAmount))
+            {
+                return true;
+            }
+            else if (!IsOdd(waterJugChallengeCreateDto.BucketX) && !IsOdd(waterJugChallengeCreateDto.BucketY) && !IsOdd(waterJugChallengeCreateDto.TargetAmount))
+            {
+                return true;
+            }
 
 
+            return false;
+        }
+
+        /// <summary>
+        /// Find the closer bucket to the TargetAmount
+        /// </summary>
+        /// <param name="waterJugChallengeCreateDto"></param>
+        /// <returns></returns>
         public int FindNearestValue(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
         {
             // Check if the target is outside the range [x, y]
@@ -236,7 +270,12 @@ namespace WaterJugChallenge.BLL.Services
             return distanceToX < distanceToY ? waterJugChallengeCreateDto.BucketX : waterJugChallengeCreateDto.BucketY;
         }
 
-        static bool IsOdd(int number)
+        /// <summary>
+        /// Validate if number is odd or even
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>true/false if number is odd or even</returns>
+        public bool IsOdd(int number)
         {
             return number % 2 == 0;
         }
