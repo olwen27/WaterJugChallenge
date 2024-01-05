@@ -36,3 +36,11 @@
  
  4. how to use the API: 
      - Endpoint Water Jug Challenge: on this endpoint you will find 3 inputs that will be use to to perform the challenge 3 of them are require.
+     - Validations:
+        - BucketX, BucketY and TargetAmount are greater than 0.
+        - TatgetAmount it not greater than BucketX and BucketY.
+        - Eather or numbers are even or odd.
+     - Results:
+       - If BucketX is the closest value to the target amount it will start by filling BucketX.
+       - If BucketY is the closest value to the target amount it will start by filling BucketY.
+       - in case there is any mismatch durring the process it will return the progress at the moment.
