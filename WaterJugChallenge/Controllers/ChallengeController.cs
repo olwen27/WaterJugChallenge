@@ -15,11 +15,19 @@ namespace WaterJugChallenge.Controllers
             _waterJugChallenge = waterJugChallenge;
         }
 
+        /// <summary>
+        /// Endpoint for solving the Water Jug Challenge.
+        /// </summary>
+        /// <param name="waterJugChallenge">Input data for the Water Jug Challenge.</param>
+        /// <returns>
+        ///   Returns a list of WaterJugChallengeResponseDto representing the solution if successful (Status 200 OK).
+        ///   If no solution is found, returns a 500 Internal Server Error with an error message.
+        /// </returns>
         [HttpPost]
-        [SwaggerOperation("Water Jug Challenge")]
+        [SwaggerOperation("Water Jug")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<WaterJugChallengeResponseDto>), ContentTypes = new string[] { "application/json" })]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(string))]
-        public ActionResult WaterJugChallenge([FromBody] WaterJugChallengeCreateDto waterJugChallenge)
+        public ActionResult WaterJug([FromForm] WaterJugChallengeCreateDto waterJugChallenge)
         {
             try
             {

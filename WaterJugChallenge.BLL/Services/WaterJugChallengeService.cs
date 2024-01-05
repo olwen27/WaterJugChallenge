@@ -221,11 +221,13 @@ namespace WaterJugChallenge.BLL.Services
         /// <returns>True/false if water can measure</returns>
         public bool CanMeasureWater(WaterJugChallengeCreateDto waterJugChallengeCreateDto)
         {
-            if (waterJugChallengeCreateDto.BucketX <= 0 || waterJugChallengeCreateDto.BucketY <= 0 || waterJugChallengeCreateDto.TargetAmount < 0)
+            //Check values are not equal to 0
+            if (waterJugChallengeCreateDto.BucketX <= 0 || waterJugChallengeCreateDto.BucketY <= 0 || waterJugChallengeCreateDto.TargetAmount <= 0)
             {
                 return false;
             }
 
+            //Check if target is higher than BucketX and BucketY
             if (waterJugChallengeCreateDto.BucketX < waterJugChallengeCreateDto.TargetAmount && waterJugChallengeCreateDto.BucketY < waterJugChallengeCreateDto.TargetAmount)
             {
                 return false;

@@ -1,9 +1,14 @@
-﻿using WaterJugChallenge.Core.Dtos.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using WaterJugChallenge.Core.Dtos.Common;
 
 namespace WaterJugChallenge.Core.Dtos
 {
+    /// <summary>
+    /// Water Jug Challenge Create Dto
+    /// </summary>
     public class WaterJugChallengeCreateDto : WaterJugChallengeDto
     {
-        public int TargetAmount { get; set; }
+        [Required(ErrorMessage = "TargetAmount is required")]
+        public int TargetAmount  { get; set; }
     }
 }

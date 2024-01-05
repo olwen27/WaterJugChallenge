@@ -25,6 +25,26 @@ namespace WaterJugChallenge.BLL.UnitTest.Tests
         }
 
         [Fact]
+        public void CanMeasureWater_InvalidInput_TargetHigherThanBuckets_ThrowsArgumentException()
+        {
+            // Arrange
+            var dto = new WaterJugChallengeCreateDto { BucketX = 33, BucketY = 45, TargetAmount = 55 };
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => _waterJugChallengeService.MeasureWater(dto));
+        }
+
+        [Fact]
+        public void CanMeasureWater_InvalidInput_EvenAndOddValues_ThrowsArgumentException()
+        {
+            // Arrange
+            var dto = new WaterJugChallengeCreateDto { BucketX = 2, BucketY = 6, TargetAmount = 5 };
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => _waterJugChallengeService.MeasureWater(dto));
+        }
+
+        [Fact]
         public void BucketProblem_ValidInput_ReturnsResultList()
         {
             // Arrange
