@@ -248,7 +248,7 @@ namespace WaterJugChallenge.BLL.Services
         }
 
         /// <summary>
-        /// Find the closer bucket to the TargetAmount
+        /// Find the closest bucket to the TargetAmount
         /// </summary>
         /// <param name="waterJugChallengeCreateDto"></param>
         /// <returns></returns>
